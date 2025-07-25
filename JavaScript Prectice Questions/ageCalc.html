@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Unbounded", sans-serif;
+      }
+
+      .text-color{
+        color: #43ea87;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center bg-[#192735] text-white text-[1.2rem]"
+  >
+    <div
+      class="w-[500px] p-6 rounded-2xl shadow-[5px_5px_5px_5px_rgba(255,255,255,0.3),5px_8px_5px_5px_#38f8b6]"
+    >
+      <form>
+        <h1 class="text-white font-semibold text-center py-4 text-xl">
+          Age Calculator
+        </h1>
+
+        <div class="grid grid-cols-3 gap-2 pt-8">
+          <div class="px-4">
+            <input
+              type="text"
+              id="date"
+              placeholder="Date"
+              required
+              minlength="1"
+              maxlength="2"
+              autocomplete="off"
+              class="w-full bg-transparent text-white border border-white/30 rounded px-4 py-5 text-base placeholder-white/30 outline-none"
+            />
+          </div>
+
+          <div class="px-4">
+            <input
+              type="text"
+              id="month"
+              placeholder="Month"
+              required
+              minlength="1"
+              maxlength="2"
+              autocomplete="off"
+              class="w-full bg-transparent text-white border border-white/30 rounded px-4 py-5 text-base placeholder-white/30 outline-none"
+            />
+          </div>
+
+          <div class="px-4">
+            <input
+              type="text"
+              id="year"
+              placeholder="Year"
+              required
+              minlength="1"
+              maxlength="4"
+              autocomplete="off"
+              class="w-full bg-transparent text-white border border-white/30 rounded px-4 py-5 text-base placeholder-white/30 outline-none"
+            />
+          </div>
+        </div>
+
+        <button
+          onclick="getApp()"
+          type="button"
+          class="block mx-auto mt-8 w-[150px] py-4 px-5 text-base font-medium tracking-wider text-[#38f8b6] border border-[#43ea87] rounded-full bg-transparent transition-all duration-500 hover:w-[180px] hover:bg-[#43ea87] hover:text-[#192735] focus-visible:outline-none focus-visible:border-[3px]"
+        >
+          Submit
+        </button>
+
+        <div class="age text-center text-red-400 mt-6 text-[1.4rem]"></div>
+      </form>
+    </div>
+    <script>
+      function getApp() {
+        let date = document.getElementById("date").value;
+        let month = document.getElementById("month").value;
+        let year = document.getElementById("year").value;
+        if(date === ""){
+            document.querySelector(".age").innerHTML = "<span class='text-danger'>Date can not be null</span>";
+            return;
+        } else if(month === ""){
+            document.querySelector(".age").innerHTML = "<span class='text-danger'>Month can not be null</span>";
+            return;
+        } else if(year === ""){
+            document.querySelector(".age").innerHTML = "<span class='text-danger'>Year can not be null</span>";
+            return;
+        }
+        let dt = new Date();
+        let currentDate = dt.getDate();
+        let currentMonth = dt.getMonth();
+        let currentYear = dt.getFullYear();
+        let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if (date > currentDate) {
+          currentDate = currentDate + monthDays[currentMonth - 1];
+          currentMonth = currentMonth - 1;
+        }
+
+        if (month > currentMonth) {
+          currentMonth = currentMonth + 12;
+          currentYear = currentYear - 1;
+        }
+
+        let d = currentDate - date;
+        let m = currentMonth - month;
+        let y = currentYear - year;
+        document.querySelector(".age").innerHTML =
+          'Your Age is <span class="text-color">' +
+          y +
+          '</span> Years <span class="text-color">' +
+          m +
+          '</span> Month <span class="text-color">' +
+          d +
+          '</span> Days <span class="text-color">';
+      }
+    </script>
+  </body>
+</html>

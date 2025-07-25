@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown to Video</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-cover bg-center bg-[url('images/GOLDEN.jpg')] bg-gray-900 text-white flex justify-center items-center h-screen flex-col relative px-4"
+  >
+    <video
+      id="bg-video1"
+      autoplay
+      loop
+      muted
+      class="absolute top-0 left-0 w-full h-full object-cover -z-10 hidden sm:block"
+    >
+      <source src="videos/bg1.mp4" type="video/mp4" />
+    </video>
+
+    <video
+      id="bg-video2"
+      autoplay
+      loop
+      muted
+      class="absolute top-0 left-0 w-full h-full object-cover -z-10 hidden sm:block"
+    >
+      <source src="videos/bg2.mp4" type="video/mp4" />
+    </video>
+
+    <div
+      id="countdown-box"
+      class="text-center p-4 sm:p-6 mb-10 sm:mb-20 bg-opacity-50 shadow-xl w-full max-w-3xl"
+    >
+      <div
+        class="text-2xl sm:text-3xl font-bold mb-3 tracking-wider text-[#F6B800]"
+      >
+        COMING SOON...
+      </div>
+      <p
+        class="text-xl sm:text-3xl font-bold mb-5 tracking-wider text-[#F6B800]"
+        id="end-date"
+      ></p>
+
+      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
+        <div
+          class="bg-gray-700 px-4 py-5 sm:p-6 rounded-lg text-center w-24 sm:w-auto"
+        >
+          <div class="text-3xl sm:text-5xl font-bold text-white" id="days">
+            00
+          </div>
+          <div class="text-xs sm:text-sm text-gray-300 mt-2 tracking-wider">
+            DAYS
+          </div>
+        </div>
+
+        <div class="text-3xl sm:text-5xl font-bold text-gray-300">:</div>
+
+        <div
+          class="bg-gray-700 px-4 py-5 sm:p-6 rounded-lg text-center w-24 sm:w-auto"
+        >
+          <div class="text-3xl sm:text-5xl font-bold text-white" id="hours">
+            00
+          </div>
+          <div class="text-xs sm:text-sm text-gray-300 mt-2 tracking-wider">
+            HOURS
+          </div>
+        </div>
+
+        <div class="text-3xl sm:text-5xl font-bold text-gray-300">:</div>
+
+        <div
+          class="bg-gray-700 px-4 py-5 sm:p-6 rounded-lg text-center w-24 sm:w-auto"
+        >
+          <div class="text-3xl sm:text-5xl font-bold text-white" id="minutes">
+            00
+          </div>
+          <div class="text-xs sm:text-sm text-gray-300 mt-2 tracking-wider">
+            MINUTES
+          </div>
+        </div>
+
+        <div class="text-3xl sm:text-5xl font-bold text-gray-300">:</div>
+
+        <div
+          class="bg-gray-700 px-4 py-5 sm:p-6 rounded-lg text-center w-24 sm:w-auto"
+        >
+          <div class="text-3xl sm:text-5xl font-bold text-white" id="seconds">
+            00
+          </div>
+          <div class="text-xs sm:text-sm text-gray-300 mt-2 tracking-wider">
+            SECONDS
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const endDate = "July 25, 2025 07:52 PM";
+      document.getElementById("end-date").innerText = endDate;
+
+      const video1 = document.getElementById("bg-video1");
+      const video2 = document.getElementById("bg-video2");
+      const countdownBox = document.getElementById("countdown-box");
+
+      function clock() {
+        const end = new Date(endDate);
+        const now = new Date();
+        const diff = (end - now) / 1000;
+
+        if (diff <= 0) {
+          // Countdown finished: hide video1, show video2
+          video1.style.display = "none";
+          video2.style.display = "block";
+          countdownBox.style.display = "none";
+          return;
+        } else {
+          // Countdown running: show video1, hide video2
+          video1.style.display = "block";
+          video2.style.display = "none";
+        }
+
+        const days = Math.floor(diff / 3600 / 24);
+        const hours = Math.floor(diff / 3600) % 24;
+        const minutes = Math.floor(diff / 60) % 60;
+        const seconds = Math.floor(diff) % 60;
+
+        document.getElementById("days").innerText =
+          days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText =
+          hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText =
+          minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText =
+          seconds < 10 ? "0" + seconds : seconds;
+      }
+
+      // Initial call
+      clock();
+
+      // Update every second
+      setInterval(clock, 1000);
+    </script>
+  </body>
+</html>
